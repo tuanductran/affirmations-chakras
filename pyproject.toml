@@ -23,7 +23,7 @@ dev = [
     "mdformat-frontmatter>=2,<3",
     "mdformat-gfm>=0.4.1,<0.5",
     "pymarkdownlnt>=0.9,<1",
-    "pytest>=8.3,<9",
+    "pytest>=9.0.3,<10",
     "ruff>=0.14,<0.15",
 ]
 
