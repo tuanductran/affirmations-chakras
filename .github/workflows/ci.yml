@@ -38,8 +38,8 @@ jobs:
           wheel="$(find dist -maxdepth 1 -name '*.whl' -print -quit)"
           test -n "$wheel"
 
-          uv run --isolated --python 3.12 --with "$wheel" score-chakras --mau > "$RUNNER_TEMP/scores-template.json"
+          uv run --isolated --no-project --python 3.12 --with "$wheel" score-chakras --mau > "$RUNNER_TEMP/scores-template.json"
           uv run --isolated --python 3.12 python -c "import json,sys; data=json.load(open(sys.argv[1], encoding='utf-8')); assert len(data) == 7 and all(len(values) == 5 for values in data.values())" "$RUNNER_TEMP/scores-template.json"
 
-          uv run --isolated --python 3.12 --with "$wheel" generate-chakra-plan --output "$RUNNER_TEMP/plan.md"
+          uv run --isolated --no-project --python 3.12 --with "$wheel" generate-chakra-plan --output "$RUNNER_TEMP/plan.md"
           uv run --isolated --python 3.12 python -c "import pathlib,re,sys; text=pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'); assert len(re.findall(r'^## Ngày ', text, re.MULTILINE)) == 365" "$RUNNER_TEMP/plan.md"
