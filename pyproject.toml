@@ -22,9 +22,12 @@ dev = [
     "mdformat>=0.7.22,<0.8",
     "mdformat-frontmatter>=2,<3",
     "mdformat-gfm>=0.4.1,<0.5",
+    "pip-audit>=2.9,<3",
     "pymarkdownlnt>=0.9,<1",
     "pytest>=9.0.3,<10",
+    "pytest-cov>=6.2,<8",
     "ruff>=0.17,<0.18",
+    "ty>=0.0.1,<1",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -32,7 +35,10 @@ packages = ["scripts"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-ra"
+addopts = "-ra --cov=scripts --cov-report=term-missing --cov-fail-under=85"
+
+[tool.coverage.report]
+show_missing = true
 
 [tool.ruff]
 line-length = 100

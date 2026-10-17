@@ -36,8 +36,9 @@
 - Không thêm phụ thuộc lúc chạy nếu thư viện chuẩn đáp ứng được yêu cầu; các công cụ lint, định dạng
   và kiểm thử chỉ được đặt trong nhóm phụ thuộc phát triển. Bảo toàn giao diện dòng lệnh hiện có và
   thông báo lỗi rõ ràng.
-- Quản lý phiên bản Python bằng `.python-version`, cấu hình dự án và các lệnh CLI trong
-  `pyproject.toml`, phụ thuộc được ghim trong `uv.lock`. Không thêm hoặc commit môi trường `.venv`.
+- Quản lý phiên bản Python tối thiểu bằng `requires-python` trong `pyproject.toml` và các lệnh CLI;
+  chỉ ghim phụ thuộc phát triển trong `uv.lock`, không ghim phiên bản Python mặc định. Không thêm
+  hoặc commit môi trường `.venv`.
 - Khi đổi phụ thuộc, cập nhật lock bằng `uv lock`; xác minh đồng bộ với
   `uv sync --locked --all-groups`.
 - Giữ mã Python đạt `uv run --locked ruff check .` và `uv run --locked ruff format --check .`.
@@ -45,15 +46,18 @@
   `uv run --locked mdformat --check --number --wrap 100 README.md AGENTS.md SKILL.md question-banks references`
   và
   `uv run --locked pymarkdown --enable-extensions front-matter -d MD013 scan -r . --respect-gitignore`.
+- Giữ kiểm tra kiểu đạt `uv run --locked ty check scripts tests`, độ bao phủ đạt ít nhất 85% bằng
+  `uv run --locked pytest --cov=scripts --cov-report=term-missing --cov-fail-under=85`, và phụ thuộc
+  không có lỗ hổng đã biết bằng `uv run --locked pip-audit`.
 - Chỉ sửa những phần cần thiết cho yêu cầu; không xóa nội dung hoặc thay đổi lịch sử Git khi chưa
   được yêu cầu cụ thể.
 
 ## Kiểm tra thay đổi
 
 - Chạy kiểm thử với `uv run --locked pytest` khi thay đổi mã, cấu trúc ngân hàng câu hỏi hoặc các
-  liên kết được kiểm tra.
-- Trước khi hoàn tất thay đổi Python hoặc Markdown, chạy kiểm thử, Ruff, Markdown lint/format và
-  `uv build`.
+  liên kết được kiểm tra; cấu hình pytest mặc định cũng yêu cầu coverage scripts tối thiểu 85%.
+- Trước khi hoàn tất thay đổi Python hoặc Markdown, chạy kiểm thử/coverage, Ruff, kiểm tra kiểu,
+  kiểm toán phụ thuộc, Markdown lint/format và `uv build`.
 - Khi chỉnh script, kiểm tra cả cách dùng phù hợp và định dạng đầu ra liên quan; không commit tệp
   kết quả sinh ra hoặc dữ liệu riêng tư.
 - Nếu không chạy được một kiểm tra, báo rõ lệnh và nguyên nhân thay vì khẳng định kiểm tra đã đạt.

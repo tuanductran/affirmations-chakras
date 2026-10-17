@@ -33,12 +33,12 @@ hoặc sức khỏe tâm thần. Xem
 
 ## Cài đặt và sử dụng với uv
 
-Cài [uv](https://docs.astral.sh/uv/getting-started/installation/) nếu máy chưa có. Dự án ghim Python
-3.12 trong `.python-version`; uv có thể tự cài phiên bản Python này và tạo môi trường cô lập
-`.venv`.
+Cài [uv](https://docs.astral.sh/uv/getting-started/installation/) nếu máy chưa có. uv tự chọn Python
+tương thích với yêu cầu `>=3.10` trong `pyproject.toml`, tải Python nếu cần và tạo môi trường cô lập
+`.venv`. CI kiểm thử Python 3.10, 3.12 và bản ổn định mới nhất 3.15.
 
 ```sh
-uv python install
+uv python install 3.15
 uv sync --all-groups
 ```
 
@@ -66,17 +66,20 @@ quả chỉ gợi ý chủ đề tự phản tỉnh, không phải đánh giá s
 uv run --locked pytest
 uv run --locked ruff check .
 uv run --locked ruff format --check .
+uv run --locked ty check scripts tests
 uv run --locked mdformat --check --number --wrap 100 README.md AGENTS.md SKILL.md question-banks references
 uv run --locked pymarkdown --enable-extensions front-matter -d MD013 scan -r . --respect-gitignore
+uv run --locked pip-audit
 uv lock --check
 uv build
 ```
 
 `mdformat` định dạng Markdown; `pymarkdownlnt` kiểm tra quy tắc Markdown (bỏ qua quy tắc độ dài dòng
-MD013 để không làm hỏng câu tiếng Việt và liên kết dài). Kiểm thử rà các liên kết và heading nội bộ
-bên cạnh nội dung, CLI và trình tạo lịch. `uv.lock` ghim phụ thuộc để máy local và GitHub Actions
-dùng cùng bộ công cụ. CI chạy kiểm thử, lint, kiểm tra định dạng và đóng gói với Python 3.10 và
-3.12.
+MD013 để không làm hỏng câu tiếng Việt và liên kết dài). Pytest-cov đo độ bao phủ mã, `ty` kiểm tra
+kiểu dữ liệu và `pip-audit` rà lỗ hổng trong các phụ thuộc. Kiểm thử rà các liên kết và heading nội
+bộ bên cạnh nội dung, CLI và trình tạo lịch. `uv.lock` ghim phụ thuộc phát triển để máy local và
+GitHub Actions dùng cùng bộ công cụ. CI chạy kiểm thử, coverage, lint, kiểm tra kiểu, rà bảo mật,
+Markdown và đóng gói trên các phiên bản Python trong ma trận.
 
 ## Nguồn tham khảo
 

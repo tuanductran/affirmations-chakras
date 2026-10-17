@@ -11,7 +11,9 @@ from urllib.parse import unquote, urlsplit
 import pytest
 from markdown_it import MarkdownIt
 
+from scripts.generate_365_day_plan import main as generate_plan_main
 from scripts.score_chakras import level_for, score, validate_scores
+from scripts.score_chakras import main as score_main
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -43,7 +45,7 @@ def markdown_link_errors(root: Path) -> list[str]:
                 if child.type != "link_open":
                     continue
                 href = child.attrGet("href")
-                if not href:
+                if not isinstance(href, str) or not href:
                     continue
                 parsed = urlsplit(href)
                 if parsed.scheme or parsed.netloc:
@@ -146,6 +148,38 @@ def test_score_script_json_output() -> None:
     assert result[0]["phan_tram"] == 50.0
 
 
+def test_score_cli_template_json_and_text(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setattr(sys, "argv", ["score-chakras", "--mau"])
+    assert score_main() == 0
+    template = json.loads(capsys.readouterr().out)
+    assert set(template) == {
+        "root",
+        "sacral",
+        "solar_plexus",
+        "heart",
+        "throat",
+        "third_eye",
+        "crown",
+    }
+    assert all(values == [None] * 5 for values in template.values())
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["score-chakras", "--json", '{"root":[0,2,4]}', "--dinh-dang", "json"],
+    )
+    assert score_main() == 0
+    assert json.loads(capsys.readouterr().out)[0]["phan_tram"] == 50.0
+
+    monkeypatch.setattr(sys, "argv", ["score-chakras", "--json", '{"root":[0,2,4]}'])
+    assert score_main() == 0
+    text = capsys.readouterr().out
+    assert "KẾT QUẢ TỰ PHẢN TỈNH" in text
+    assert "Chủ đề có điểm thấp nhất để bắt đầu: Gốc rễ." in text
+
+
 def test_score_script_reads_file(tmp_path: Path) -> None:
     scores_file = tmp_path / "scores.json"
     scores_file.write_text('{"heart":[4,3,2]}', encoding="utf-8")
@@ -165,6 +199,28 @@ def test_score_script_reads_file(tmp_path: Path) -> None:
     result = json.loads(completed.stdout)
     assert result[0]["khoa"] == "heart"
     assert result[0]["phan_tram"] == 75.0
+
+
+def test_score_cli_file_and_error_paths(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path
+) -> None:
+    score_file = tmp_path / "scores.json"
+    score_file.write_text('{"heart":[4,3,2]}', encoding="utf-8")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["score-chakras", "--file", str(score_file), "--dinh-dang", "json"],
+    )
+    assert score_main() == 0
+    assert json.loads(capsys.readouterr().out)[0]["khoa"] == "heart"
+
+    monkeypatch.setattr(sys, "argv", ["score-chakras", "--json", "not-json"])
+    assert score_main() == 2
+    assert capsys.readouterr().err.startswith("Lỗi:")
+
+    monkeypatch.setattr(sys, "argv", ["score-chakras", "--file", str(tmp_path / "missing.json")])
+    assert score_main() == 2
+    assert capsys.readouterr().err.startswith("Lỗi:")
 
 
 def test_score_script_rejects_fractional_values() -> None:
@@ -219,6 +275,11 @@ def test_score_classifies_valid_fractional_percentage() -> None:
     assert result[0]["muc_goi_y"] == "khá được nâng đỡ"
 
 
+@pytest.mark.parametrize("percent", [-0.1, 100.1])
+def test_level_for_out_of_range_percent(percent: float) -> None:
+    assert level_for(percent) == "chưa đủ dữ liệu"
+
+
 def test_console_scripts_are_configured() -> None:
     config = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     assert 'score-chakras = "scripts.score_chakras:main"' in config
@@ -250,3 +311,24 @@ def test_365_day_generator_reports_output_errors(tmp_path: Path) -> None:
     )
     assert completed.returncode == 2
     assert "Không thể ghi tệp" in completed.stderr
+
+
+def test_generator_main_writes_plan(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path
+) -> None:
+    output = tmp_path / "plan.md"
+    monkeypatch.setattr(sys, "argv", ["generate-chakra-plan", "--output", str(output)])
+    assert generate_plan_main() == 0
+    assert "với 365 ngày" in capsys.readouterr().out
+    assert len(re.findall(r"^## Ngày ", output.read_text(encoding="utf-8"), re.MULTILINE)) == 365
+
+
+def test_generator_main_reports_write_error(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path
+) -> None:
+    output = tmp_path / "missing" / "plan.md"
+    monkeypatch.setattr(sys, "argv", ["generate-chakra-plan", "--output", str(output)])
+    with pytest.raises(SystemExit) as error:
+        generate_plan_main()
+    assert error.value.code == 2
+    assert "Không thể ghi tệp" in capsys.readouterr().err

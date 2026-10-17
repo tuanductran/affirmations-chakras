@@ -17,6 +17,17 @@ import argparse
 import json
 import sys
 from pathlib import Path
+from typing import TypedDict
+
+
+class ScoreRow(TypedDict):
+    khoa: str
+    ten: str
+    so_cau: int
+    diem_trung_binh: float
+    phan_tram: float
+    muc_goi_y: str
+
 
 CHAKRAS = {
     "root": "Gốc rễ",
@@ -65,8 +76,8 @@ def validate_scores(raw: object) -> dict[str, list[int]]:
     return result
 
 
-def score(raw: dict[str, list[int]]) -> list[dict[str, object]]:
-    rows = []
+def score(raw: dict[str, list[int]]) -> list[ScoreRow]:
+    rows: list[ScoreRow] = []
     for key, values in raw.items():
         average = sum(values) / len(values)
         percent = round(average / 4 * 100, 1)
