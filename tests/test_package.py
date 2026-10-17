@@ -129,6 +129,28 @@ def test_skill_metadata_and_references() -> None:
         assert f"../question-banks/{slug}-question-bank.md" in reference.read_text(encoding="utf-8")
 
 
+def test_agent_skills_follow_specification() -> None:
+    skill_files = sorted((ROOT / ".agents" / "skills").glob("*/SKILL.md"))
+    assert {path.parent.name for path in skill_files} == {
+        "chakra-content-editor",
+        "python-markdown-maintenance",
+    }
+    for path in skill_files:
+        text = path.read_text(encoding="utf-8")
+        assert text.startswith("---\n")
+        metadata = text.split("---", 2)[1]
+        name = re.search(r"^name:\s*(.+)$", metadata, re.MULTILINE)
+        description = re.search(r'^description:\s*"(.+)"$', metadata, re.MULTILINE)
+        assert name is not None
+        assert description is not None
+        assert name.group(1) == path.parent.name
+        assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", name.group(1))
+        assert len(name.group(1)) <= 64
+        assert 0 < len(description.group(1)) <= 1024
+        assert "license: MIT" in metadata
+        assert len(text.splitlines()) <= 500
+
+
 def test_question_banks_have_expected_counts() -> None:
     for slug in SLUGS:
         text = (ROOT / "question-banks" / f"{slug}-question-bank.md").read_text(encoding="utf-8")

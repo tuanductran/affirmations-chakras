@@ -8,6 +8,10 @@ chức năng thân thể; hệ thống bảy luân xa hiện đại thường g�
 giác quan, nguyên tố và câu thần chú riêng. Đây là khung biểu tượng để tự phản tỉnh, không phải bản
 đồ giải phẫu hoặc chẩn đoán y khoa. [1]
 
+Các hệ thống thân thể vi tế trong tantra Ấn Độ giáo và Phật giáo được mô tả khác nhau giữa truyền
+thống, văn bản và bối cảnh nghi lễ; sơ đồ bảy luân xa hiện đại không đại diện cho một hệ thống lịch
+sử duy nhất hay phổ quát. [6]
+
 Không khẳng định một luân xa “bị tắc”, “mất cân bằng” hay “được chữa khỏi” theo nghĩa y khoa. Dùng
 các cách nói an toàn hơn như “chủ đề tôi muốn khám phá”, “mức độ tôi cảm thấy được nâng đỡ” hoặc
 “điều tôi muốn thực hành”. Màu sắc, vị trí, số lượng và cách diễn giải có thể khác giữa các truyền
@@ -58,3 +62,4 @@ chính mình theo thời gian và quan sát nhu cầu hỗ trợ.
 [3]: https://doi.org/10.1037/amp0001591 "The impact of self-affirmation interventions on well-being: A meta-analysis — American Psychological Association"
 [4]: https://www.nccih.nih.gov/health/meditation-and-mindfulness-effectiveness-and-safety "Meditation and Mindfulness: Effectiveness and Safety — NCCIH"
 [5]: https://doi.org/10.1111/acps.13225 "Adverse events in meditation practices and meditation-based therapies: a systematic review"
+[6]: https://doi.org/10.1093/oxfordhb/9780197549889.013.8 "Esoteric Physiology and Subtle Body Systems — The Oxford Handbook of Tantric Studies"

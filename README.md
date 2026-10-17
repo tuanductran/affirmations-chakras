@@ -30,6 +30,11 @@ hoặc sức khỏe tâm thần. Xem
 - `scripts/generate_365_day_plan.py` — tạo khung nhật ký thực hành 365 ngày.
 - `tests/` — kiểm tra metadata, liên kết, số lượng câu hỏi và hai script.
 - `AGENTS.md` — quy tắc dành cho công cụ AI khi đọc hoặc sửa repository.
+- `.agents/skills/` — các quy trình chuyên biệt theo
+  [định dạng Agent Skills](https://agentskills.io/specification) cho tác vụ biên tập nội dung và bảo
+  trì Python/Markdown.
+  [Codex phát hiện skills repository ở vị trí này](https://developers.openai.com/codex/skills/); các
+  agent khác có thể cần cấu hình hoặc dùng vị trí riêng.
 - `CONTRIBUTING.md` — hướng dẫn đóng góp và kiểm tra trước khi tạo pull request.
 - `SECURITY.md` — phạm vi hỗ trợ và cách báo cáo lỗ hổng riêng tư.
 
@@ -69,7 +74,7 @@ uv run --locked pytest
 uv run --locked ruff check .
 uv run --locked ruff format --check .
 uv run --locked ty check scripts tests
-uv run --locked mdformat --check --number --wrap 100 README.md AGENTS.md CONTRIBUTING.md SECURITY.md SKILL.md question-banks references
+uv run --locked mdformat --check --number --wrap 100 README.md AGENTS.md CONTRIBUTING.md SECURITY.md SKILL.md question-banks references .agents/skills
 uv run --locked pymarkdown --enable-extensions front-matter -d MD013 scan -r . --respect-gitignore
 uv run --locked pip-audit --skip-editable
 uv lock --check

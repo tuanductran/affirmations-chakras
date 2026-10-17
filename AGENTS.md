@@ -12,6 +12,8 @@
 - Giữ các liên kết tương đối giữa tài liệu và cập nhật liên kết khi đổi tên hoặc di chuyển file.
 - Làm theo `CONTRIBUTING.md` khi chuẩn bị thay đổi; báo cáo lỗ hổng theo `SECURITY.md`, không đăng
   chi tiết khai thác công khai.
+- Dùng skill trong `.agents/skills/` khi yêu cầu khớp với mô tả của skill đó; skill bổ sung quy
+  trình chuyên biệt, không thay thế các nguyên tắc chung trong file này.
 
 ## An toàn và độ chính xác
 
@@ -45,7 +47,7 @@
   `uv sync --locked --all-groups`.
 - Giữ mã Python đạt `uv run --locked ruff check .` và `uv run --locked ruff format --check .`.
 - Giữ tài liệu đạt
-  `uv run --locked mdformat --check --number --wrap 100 README.md AGENTS.md CONTRIBUTING.md SECURITY.md SKILL.md question-banks references`
+  `uv run --locked mdformat --check --number --wrap 100 README.md AGENTS.md CONTRIBUTING.md SECURITY.md SKILL.md question-banks references .agents/skills`
   và
   `uv run --locked pymarkdown --enable-extensions front-matter -d MD013 scan -r . --respect-gitignore`.
 - Giữ kiểm tra kiểu đạt `uv run --locked ty check scripts tests`, độ bao phủ đạt ít nhất 85% bằng
