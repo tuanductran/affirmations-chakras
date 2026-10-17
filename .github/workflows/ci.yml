@@ -25,7 +25,7 @@ jobs:
       - run: uv run --locked --python ${{ matrix.python-version }} ruff check .
       - run: uv run --locked --python ${{ matrix.python-version }} ruff format --check .
       - run: uv run --locked --python ${{ matrix.python-version }} ty check scripts tests
-      - run: uv run --locked --python ${{ matrix.python-version }} mdformat --check --number --wrap 100 README.md AGENTS.md SKILL.md question-banks references
+      - run: uv run --locked --python ${{ matrix.python-version }} mdformat --check --number --wrap 100 README.md AGENTS.md CONTRIBUTING.md SECURITY.md SKILL.md question-banks references
       - run: uv run --locked --python ${{ matrix.python-version }} pymarkdown --enable-extensions front-matter -d MD013 scan -r . --respect-gitignore
       - run: uv run --locked --python ${{ matrix.python-version }} pip-audit --skip-editable
         if: matrix.python-version == '3.12'

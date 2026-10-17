@@ -30,6 +30,8 @@ hoặc sức khỏe tâm thần. Xem
 - `scripts/generate_365_day_plan.py` — tạo khung nhật ký thực hành 365 ngày.
 - `tests/` — kiểm tra metadata, liên kết, số lượng câu hỏi và hai script.
 - `AGENTS.md` — quy tắc dành cho công cụ AI khi đọc hoặc sửa repository.
+- `CONTRIBUTING.md` — hướng dẫn đóng góp và kiểm tra trước khi tạo pull request.
+- `SECURITY.md` — phạm vi hỗ trợ và cách báo cáo lỗ hổng riêng tư.
 
 ## Cài đặt và sử dụng với uv
 
@@ -67,7 +69,7 @@ uv run --locked pytest
 uv run --locked ruff check .
 uv run --locked ruff format --check .
 uv run --locked ty check scripts tests
-uv run --locked mdformat --check --number --wrap 100 README.md AGENTS.md SKILL.md question-banks references
+uv run --locked mdformat --check --number --wrap 100 README.md AGENTS.md CONTRIBUTING.md SECURITY.md SKILL.md question-banks references
 uv run --locked pymarkdown --enable-extensions front-matter -d MD013 scan -r . --respect-gitignore
 uv run --locked pip-audit
 uv lock --check
@@ -91,3 +93,8 @@ dẫn về thiền; không diễn giải các nghiên cứu đó thành bằng c
 ## Giấy phép
 
 Repository được phát hành theo giấy phép [MIT](LICENSE).
+
+## Đóng góp và bảo mật
+
+Xem [hướng dẫn đóng góp](CONTRIBUTING.md) trước khi tạo pull request. Nếu phát hiện vấn đề bảo mật,
+hãy làm theo [chính sách bảo mật](SECURITY.md) và không đăng chi tiết khai thác công khai.
