@@ -111,7 +111,16 @@ def test_markdown_link_checker_reports_missing_files_and_anchors(tmp_path: Path)
 def test_skill_metadata_and_references() -> None:
     skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
     assert skill.startswith("---\n")
-    assert "name: affirmations-chakras" in skill
+    metadata = skill.split("---", 2)[1]
+    name = re.search(r"^name:\s*(.+)$", metadata, re.MULTILINE)
+    description = re.search(r'^description:\s*"(.+)"$', metadata, re.MULTILINE)
+    assert name is not None
+    assert description is not None
+    assert name.group(1) == ROOT.name
+    assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", name.group(1))
+    assert len(name.group(1)) <= 64
+    assert 0 < len(description.group(1)) <= 1024
+    assert "license: MIT" in metadata
     for slug in SLUGS:
         reference = ROOT / "references" / f"{slug}.md"
         bank = ROOT / "question-banks" / f"{slug}-question-bank.md"

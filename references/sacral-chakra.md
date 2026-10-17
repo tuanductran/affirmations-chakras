@@ -13,7 +13,7 @@ nếu không phù hợp.
 - Tôi có thể thay đổi mà vẫn giữ được sự an toàn nội tâm.
 - Tôi được phép nghỉ, chơi và tạo ra điều gì đó vui vẻ.
 - Tôi giao tiếp rõ ràng về điều tôi đồng ý và không đồng ý.
-- Tôi đang chữa lành theo nhịp độ phù hợp với mình.
+- Tôi cho phép mình chăm sóc cảm xúc theo nhịp độ phù hợp.
 
 ## Ngân hàng câu hỏi
 

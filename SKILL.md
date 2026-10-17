@@ -1,6 +1,7 @@
 ---
 name: affirmations-chakras
-description: "Hướng dẫn tạo và điều phối nội dung câu khẳng định, tự phản tỉnh và thực hành chăm sóc tinh thần theo 7 luân xa từ Gốc rễ đến Vương miện. Dùng khi người dùng muốn chọn luân xa, tạo câu khẳng định cá nhân hóa, thực hiện phiên tự phản tỉnh, xây dựng lộ trình 7 ngày hoặc sử dụng ngân hàng 105 câu hỏi."
+description: "Hướng dẫn tạo nội dung câu khẳng định, tự phản tỉnh và thực hành chăm sóc tinh thần theo 7 luân xa. Dùng khi người dùng muốn chọn chủ đề chakra, tạo câu khẳng định, thực hiện phiên tự phản tỉnh, xây dựng lộ trình 7 ngày hoặc dùng ngân hàng 105 câu tự phản tỉnh và 35 câu tự đánh giá."
+license: MIT
 ---
 
 # Hệ thống câu khẳng định theo 7 luân xa

@@ -23,9 +23,9 @@ nguy hiểm.
 Trong nghiên cứu tâm lý, các can thiệp tự khẳng định thường mời người tham gia viết về giá trị cốt
 lõi hoặc trải nghiệm có ý nghĩa, thay vì chỉ lặp một câu tích cực. Một tổng quan trên PubMed mô tả
 cơ chế này như việc mở rộng cảm nhận về bản thân và các nguồn lực của mình. [2] Một phân tích tổng
-hợp gần đây ghi nhận ảnh hưởng tích cực nhưng nhìn chung nhỏ đến vừa đối với nhận thức bản thân, sức
-khỏe tinh thần chung, quan hệ xã hội, hiệu suất nhận thức và hành vi; kết quả vẫn thay đổi theo nhóm
-người và cách can thiệp. [3]
+hợp năm 2025 ghi nhận ảnh hưởng tích cực nhưng nhìn chung nhỏ đến vừa đối với một số kết quả về nhận
+thức bản thân, sức khỏe tinh thần, quan hệ xã hội, hiệu suất nhận thức và hành vi; kết quả thay đổi
+theo nhóm người và cách can thiệp. [3]
 
 Vì vậy, hãy ưu tiên câu khẳng định có tính tiến trình: “Tôi đang học cách…”, “Tôi có thể thử…”, “Tôi
 cho phép mình tìm sự hỗ trợ…”. Không dùng câu khẳng định để phủ nhận bệnh tật, nguy hiểm, sang chấn
@@ -34,10 +34,12 @@ hoặc trách nhiệm xã hội.
 ## Thiền, hình dung và an toàn
 
 Có thể dùng hơi thở, chú ý hiện tại, hình dung màu sắc hoặc viết nhật ký như hoạt động chăm sóc bản
-thân. Không hứa rằng những hoạt động này điều trị bệnh. NCCIH cho biết các thực hành thiền và chánh
-niệm thường có ít rủi ro được ghi nhận, nhưng nghiên cứu về tác dụng có hại còn hạn chế; một tổng
-quan năm 2020 ghi nhận trải nghiệm tiêu cực ở khoảng 8% người tham gia, thường là lo âu hoặc trầm
-cảm. [4]
+thân. Không hứa rằng những hoạt động này điều trị bệnh. NCCIH lưu ý rằng nhiều nghiên cứu về thiền
+và chánh niệm còn sơ bộ hoặc chưa đủ chặt chẽ. [4] Một tổng quan hệ thống năm 2020 về thiền, gồm 83
+nghiên cứu và 6.703 người tham gia, ước tính tỷ lệ biến cố bất lợi gộp là 8,3%; tỷ lệ thay đổi đáng
+kể giữa nghiên cứu thực nghiệm (3,7%) và nghiên cứu quan sát (33,2%). Các phương pháp nghiên cứu
+khác nhau, nên không diễn giải con số gộp này như dự báo cho từng cá nhân hoặc cho mọi bài tập thở,
+viết nhật ký hay hình dung. [5]
 
 Nếu người dùng thấy hoảng sợ, mất kết nối với thực tại, hồi tưởng sang chấn hoặc suy nghĩ tự hại,
 dừng hình dung và chuyển sang định hướng giác quan đơn giản: mở mắt, gọi tên vật đang thấy, cảm nhận
@@ -53,5 +55,6 @@ chính mình theo thời gian và quan sát nhu cầu hỗ trợ.
 
 [1]: https://www.britannica.com/topic/chakra "Chakra — Encyclopaedia Britannica"
 [2]: https://pubmed.ncbi.nlm.nih.gov/24405362/ "The psychology of change: self-affirmation and social psychological intervention — PubMed"
-[3]: https://www.apa.org/pubs/journals/releases/amp-amp0001591.pdf "The Impact of Self-Affirmation Interventions on Well-Being — American Psychological Association"
+[3]: https://doi.org/10.1037/amp0001591 "The impact of self-affirmation interventions on well-being: A meta-analysis — American Psychological Association"
 [4]: https://www.nccih.nih.gov/health/meditation-and-mindfulness-effectiveness-and-safety "Meditation and Mindfulness: Effectiveness and Safety — NCCIH"
+[5]: https://doi.org/10.1111/acps.13225 "Adverse events in meditation practices and meditation-based therapies: a systematic review"

@@ -50,7 +50,7 @@
   `uv run --locked pymarkdown --enable-extensions front-matter -d MD013 scan -r . --respect-gitignore`.
 - Giữ kiểm tra kiểu đạt `uv run --locked ty check scripts tests`, độ bao phủ đạt ít nhất 85% bằng
   `uv run --locked pytest --cov=scripts --cov-report=term-missing --cov-fail-under=85`, và phụ thuộc
-  không có lỗ hổng đã biết bằng `uv run --locked pip-audit`.
+  không có lỗ hổng đã biết bằng `uv run --locked pip-audit --skip-editable`.
 - Chỉ sửa những phần cần thiết cho yêu cầu; không xóa nội dung hoặc thay đổi lịch sử Git khi chưa
   được yêu cầu cụ thể.
 
