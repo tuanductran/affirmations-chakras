@@ -2,18 +2,21 @@
 
 ## Mục đích
 
-Dùng ngân hàng câu hỏi này để tự phản tỉnh nhẹ nhàng về chủ đề Gốc rễ — Muladhara. Chọn 3–5 câu hỏi cho mỗi phiên. Có thể trả lời bằng vài dòng, một ví dụ cụ thể hoặc chấm điểm từ 0–10. Đây không phải công cụ chẩn đoán.
+Dùng ngân hàng câu hỏi này để tự phản tỉnh nhẹ nhàng về chủ đề Gốc rễ — Muladhara. Chọn 3–5 câu hỏi
+cho mỗi phiên. Có thể trả lời bằng vài dòng, một ví dụ cụ thể hoặc chấm điểm từ 0–10. Đây không phải
+công cụ chẩn đoán.
 
 ## Luân xa Gốc rễ — Muladhara
-1. Hiện tại điều gì giúp tôi cảm thấy an toàn hơn?
-2. Cơ thể tôi đang cần nghỉ ngơi, ăn uống hay vận động thế nào?
-3. Không gian sống nào đang hỗ trợ hoặc làm giảm cảm giác ổn định của tôi?
-4. Tôi thường làm gì khi cảm thấy bất an?
-5. Tôi có đang bỏ qua một nhu cầu cơ bản nào không?
-6. Tôi cảm thấy mình thuộc về những nơi hoặc nhóm người nào?
-7. Niềm tin nào khiến tôi nghĩ rằng mình phải tự xoay xở một mình?
-8. Tôi có thể nhờ ai hỗ trợ một việc cụ thể?
-9. “Đủ” đối với tôi trong tuần này nghĩa là gì?
+
+01. Hiện tại điều gì giúp tôi cảm thấy an toàn hơn?
+02. Cơ thể tôi đang cần nghỉ ngơi, ăn uống hay vận động thế nào?
+03. Không gian sống nào đang hỗ trợ hoặc làm giảm cảm giác ổn định của tôi?
+04. Tôi thường làm gì khi cảm thấy bất an?
+05. Tôi có đang bỏ qua một nhu cầu cơ bản nào không?
+06. Tôi cảm thấy mình thuộc về những nơi hoặc nhóm người nào?
+07. Niềm tin nào khiến tôi nghĩ rằng mình phải tự xoay xở một mình?
+08. Tôi có thể nhờ ai hỗ trợ một việc cụ thể?
+09. “Đủ” đối với tôi trong tuần này nghĩa là gì?
 10. Tôi đang cố kiểm soát điều gì vì sợ thiếu thốn?
 11. Một ranh giới nào sẽ giúp tôi vững vàng hơn?
 12. Điều gì trong quá khứ chứng minh rằng tôi từng vượt qua khó khăn?
@@ -23,7 +26,9 @@ Dùng ngân hàng câu hỏi này để tự phản tỉnh nhẹ nhàng về ch�
 
 ## Bộ chấm điểm nhanh
 
-Chấm mỗi câu từ 0 đến 4: **0** = hoàn toàn không đúng lúc này; **1** = ít đúng; **2** = đúng một phần; **3** = khá đúng; **4** = rất đúng. Tính điểm trung bình hoặc dùng công cụ `scripts/score_chakras.py`. Điểm chỉ giúp chọn chủ đề thực hành, không phải kết luận về sức khỏe.
+Chấm mỗi câu từ 0 đến 4: **0** = hoàn toàn không đúng lúc này; **1** = ít đúng; **2** = đúng một
+phần; **3** = khá đúng; **4** = rất đúng. Tính điểm trung bình hoặc dùng công cụ
+`scripts/score_chakras.py`. Điểm chỉ giúp chọn chủ đề thực hành, không phải kết luận về sức khỏe.
 
 1. Tôi cảm thấy an toàn trong cơ thể và không gian sống của mình.
 2. Tôi nhận biết và chăm sóc các nhu cầu cơ bản của mình.

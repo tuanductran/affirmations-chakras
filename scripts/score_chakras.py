@@ -46,6 +46,8 @@ def level_for(percent: float) -> str:
 def validate_scores(raw: object) -> dict[str, list[int]]:
     if not isinstance(raw, dict):
         raise ValueError("Dữ liệu phải là một đối tượng JSON theo từng luân xa.")
+    if not raw:
+        raise ValueError("Phải cung cấp điểm cho ít nhất một luân xa.")
     result: dict[str, list[int]] = {}
     for key, values in raw.items():
         if key not in CHAKRAS:

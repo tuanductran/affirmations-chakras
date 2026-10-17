@@ -4,9 +4,12 @@ import json
 import re
 import subprocess
 import sys
+from collections import defaultdict
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 import pytest
+from markdown_it import MarkdownIt
 
 from scripts.score_chakras import level_for, score, validate_scores
 
@@ -21,6 +24,86 @@ SLUGS = (
     "third-eye-chakra",
     "crown-chakra",
 )
+
+
+def markdown_link_errors(root: Path) -> list[str]:
+    parser = MarkdownIt("commonmark")
+    ignored = {".git", ".venv", "build", "dist", "node_modules"}
+    errors: list[str] = []
+    anchor_cache: dict[Path, set[str]] = {}
+    for source in sorted(root.rglob("*.md")):
+        if ignored.intersection(source.relative_to(root).parts):
+            continue
+
+        tokens = parser.parse(source.read_text(encoding="utf-8"))
+        for token in tokens:
+            if token.type != "inline":
+                continue
+            for child in token.children or []:
+                if child.type != "link_open":
+                    continue
+                href = child.attrGet("href")
+                if not href:
+                    continue
+                parsed = urlsplit(href)
+                if parsed.scheme or parsed.netloc:
+                    continue
+
+                target = (source.parent / unquote(parsed.path)).resolve()
+                try:
+                    target.relative_to(root.resolve())
+                except ValueError:
+                    errors.append(f"{source.relative_to(root)}: link escapes repository: {href}")
+                    continue
+                if not target.exists():
+                    errors.append(f"{source.relative_to(root)}: missing target: {href}")
+                    continue
+                if parsed.fragment and target.is_file() and target.suffix.lower() == ".md":
+                    fragment = unquote(parsed.fragment)
+                    if target not in anchor_cache:
+                        anchor_cache[target] = anchors_for_markdown(target, parser)
+                    if fragment not in anchor_cache[target]:
+                        errors.append(f"{source.relative_to(root)}: missing heading anchor: {href}")
+
+    return errors
+
+
+def anchors_for_markdown(path: Path, parser: MarkdownIt) -> set[str]:
+    tokens = parser.parse(path.read_text(encoding="utf-8"))
+    anchors: set[str] = set()
+    slug_counts: dict[str, int] = defaultdict(int)
+    for index, token in enumerate(tokens[:-1]):
+        if token.type != "heading_open" or tokens[index + 1].type != "inline":
+            continue
+        inline = tokens[index + 1]
+        heading_text = "".join(
+            child.content
+            for child in inline.children or []
+            if child.type in {"text", "code_inline"}
+        )
+        slug = re.sub(r"[^\w -]", "", heading_text.casefold())
+        slug = re.sub(r"\s+", "-", slug).strip("-")
+        duplicate = slug_counts[slug]
+        slug_counts[slug] += 1
+        anchors.add(f"{slug}-{duplicate}" if duplicate else slug)
+    return anchors
+
+
+def test_markdown_local_links_and_anchors() -> None:
+    assert markdown_link_errors(ROOT) == []
+
+
+def test_markdown_link_checker_reports_missing_files_and_anchors(tmp_path: Path) -> None:
+    (tmp_path / "index.md").write_text(
+        "[valid](target.md#section) [missing](absent.md) [bad anchor](target.md#absent)\n\n"
+        "```markdown\n[ignored](not-a-link.md)\n```\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "target.md").write_text("# Section\n", encoding="utf-8")
+    errors = markdown_link_errors(tmp_path)
+    assert len(errors) == 2
+    assert any("missing target" in error for error in errors)
+    assert any("missing heading anchor" in error for error in errors)
 
 
 def test_skill_metadata_and_references() -> None:
@@ -115,6 +198,7 @@ def test_level_for_covers_continuous_score_ranges(percent: float, expected: str)
 @pytest.mark.parametrize(
     "raw",
     [
+        {},
         [],
         {"unknown": [1]},
         {"root": []},

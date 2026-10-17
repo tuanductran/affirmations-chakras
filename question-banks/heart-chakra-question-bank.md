@@ -2,18 +2,21 @@
 
 ## Mục đích
 
-Dùng ngân hàng câu hỏi này để tự phản tỉnh nhẹ nhàng về chủ đề Tim — Anahata. Chọn 3–5 câu hỏi cho mỗi phiên. Có thể trả lời bằng vài dòng, một ví dụ cụ thể hoặc chấm điểm từ 0–10. Đây không phải công cụ chẩn đoán.
+Dùng ngân hàng câu hỏi này để tự phản tỉnh nhẹ nhàng về chủ đề Tim — Anahata. Chọn 3–5 câu hỏi cho
+mỗi phiên. Có thể trả lời bằng vài dòng, một ví dụ cụ thể hoặc chấm điểm từ 0–10. Đây không phải
+công cụ chẩn đoán.
 
 ## Luân xa Tim — Anahata
-1. Tôi đang cần được yêu thương hay được nghỉ ngơi theo cách nào?
-2. Tôi đối xử với bản thân ra sao khi mắc lỗi?
-3. Mối quan hệ nào đang nuôi dưỡng tôi?
-4. Mối quan hệ nào cần thêm ranh giới hoặc khoảng cách?
-5. Tôi khó nhận sự quan tâm ở điểm nào?
-6. Tôi có đang cho đi để được công nhận không?
-7. Tôi có thể tha thứ điều gì mà không cần quay lại một tình huống không an toàn?
-8. Tôi đang giữ nỗi buồn nào cần được lắng nghe?
-9. Lòng trắc ẩn với bản thân sẽ trông như thế nào trong hôm nay?
+
+01. Tôi đang cần được yêu thương hay được nghỉ ngơi theo cách nào?
+02. Tôi đối xử với bản thân ra sao khi mắc lỗi?
+03. Mối quan hệ nào đang nuôi dưỡng tôi?
+04. Mối quan hệ nào cần thêm ranh giới hoặc khoảng cách?
+05. Tôi khó nhận sự quan tâm ở điểm nào?
+06. Tôi có đang cho đi để được công nhận không?
+07. Tôi có thể tha thứ điều gì mà không cần quay lại một tình huống không an toàn?
+08. Tôi đang giữ nỗi buồn nào cần được lắng nghe?
+09. Lòng trắc ẩn với bản thân sẽ trông như thế nào trong hôm nay?
 10. Tôi nhận thấy điều tử tế nào quanh mình?
 11. Tôi muốn nói lời cảm ơn với ai, và vì điều gì?
 12. Tôi có thể bất đồng mà vẫn tôn trọng người khác ra sao?
@@ -23,7 +26,9 @@ Dùng ngân hàng câu hỏi này để tự phản tỉnh nhẹ nhàng về ch�
 
 ## Bộ chấm điểm nhanh
 
-Chấm mỗi câu từ 0 đến 4: **0** = hoàn toàn không đúng lúc này; **1** = ít đúng; **2** = đúng một phần; **3** = khá đúng; **4** = rất đúng. Tính điểm trung bình hoặc dùng công cụ `scripts/score_chakras.py`. Điểm chỉ giúp chọn chủ đề thực hành, không phải kết luận về sức khỏe.
+Chấm mỗi câu từ 0 đến 4: **0** = hoàn toàn không đúng lúc này; **1** = ít đúng; **2** = đúng một
+phần; **3** = khá đúng; **4** = rất đúng. Tính điểm trung bình hoặc dùng công cụ
+`scripts/score_chakras.py`. Điểm chỉ giúp chọn chủ đề thực hành, không phải kết luận về sức khỏe.
 
 1. Tôi đối xử với bản thân bằng lòng tử tế.
 2. Tôi cảm thấy xứng đáng với các mối quan hệ an toàn.
