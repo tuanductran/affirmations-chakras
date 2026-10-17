@@ -8,9 +8,9 @@ bản phát hành hoặc nhánh cũ.
 ## Báo cáo lỗ hổng
 
 Vui lòng **không đăng công khai chi tiết khai thác hoặc dữ liệu nhạy cảm** trong issue hay pull
-request. Hãy gửi báo cáo riêng qua
-[GitHub Security Advisories](https://github.com/tuanductran/affirmations-chakras/security/advisories/new)
-nếu chức năng báo cáo riêng khả dụng. Nếu không thấy tùy chọn đó, hãy liên hệ chủ repository qua
+request. Repository bật báo cáo lỗ hổng riêng tư; hãy gửi báo cáo qua
+[GitHub Security Advisories](https://github.com/tuanductran/affirmations-chakras/security/advisories/new).
+Nếu không truy cập được biểu mẫu, hãy liên hệ chủ repository qua
 [hồ sơ GitHub](https://github.com/tuanductran) để xin một kênh trao đổi riêng; chỉ gửi thông tin chi
 tiết sau khi có kênh riêng.
 
