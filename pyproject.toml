@@ -18,7 +18,7 @@ generate-chakra-plan = "scripts.generate_365_day_plan:main"
 
 [dependency-groups]
 dev = [
-    "markdown-it-py>=3,<4",
+    "markdown-it-py>=4,<5",
     "mdformat>=0.7.22,<0.8",
     "mdformat-frontmatter>=2,<3",
     "mdformat-gfm>=0.4.1,<0.5",
