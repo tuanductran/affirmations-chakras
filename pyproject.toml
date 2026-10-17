@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling>=1.26,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "affirmations-chakras"
+version = "0.1.0"
+description = "Vietnamese self-reflection tools for seven chakra themes"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Tuan Duc Tran" }]
+dependencies = []
+
+[project.scripts]
+score-chakras = "scripts.score_chakras:main"
+generate-chakra-plan = "scripts.generate_365_day_plan:main"
+
+[dependency-groups]
+dev = ["pytest>=8.3,<9"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["scripts"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

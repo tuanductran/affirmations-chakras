@@ -21,10 +21,12 @@
 - Mỗi ngân hàng câu hỏi hiện có 15 câu tự phản tỉnh và 5 câu tự đánh giá. Nếu thay đổi số lượng hoặc cấu trúc, cập nhật kiểm thử có liên quan và nêu rõ thay đổi chủ đích.
 - Giữ câu hỏi và câu khẳng định cụ thể, có tính lựa chọn, không phán xét và không đòi hỏi người dùng tiết lộ trải nghiệm nhạy cảm.
 - Không thêm phụ thuộc Python mới nếu thư viện chuẩn đáp ứng được yêu cầu. Bảo toàn giao diện dòng lệnh hiện có và thông báo lỗi rõ ràng.
+- Quản lý phiên bản Python bằng `.python-version`, cấu hình dự án và các lệnh CLI trong `pyproject.toml`, phụ thuộc được ghim trong `uv.lock`. Không thêm hoặc commit môi trường `.venv`.
+- Khi đổi phụ thuộc, cập nhật lock bằng `uv lock`; xác minh đồng bộ với `uv sync --locked --all-groups`.
 - Chỉ sửa những phần cần thiết cho yêu cầu; không xóa nội dung hoặc thay đổi lịch sử Git khi chưa được yêu cầu cụ thể.
 
 ## Kiểm tra thay đổi
 
-- Chạy kiểm thử với `python -m pytest -q` khi thay đổi mã, cấu trúc ngân hàng câu hỏi hoặc các liên kết được kiểm tra.
+- Chạy kiểm thử với `uv run --locked pytest` khi thay đổi mã, cấu trúc ngân hàng câu hỏi hoặc các liên kết được kiểm tra.
 - Khi chỉnh script, kiểm tra cả cách dùng phù hợp và định dạng đầu ra liên quan; không commit tệp kết quả sinh ra hoặc dữ liệu riêng tư.
 - Nếu không chạy được một kiểm tra, báo rõ lệnh và nguyên nhân thay vì khẳng định kiểm tra đã đạt.

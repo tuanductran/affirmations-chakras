@@ -20,35 +20,40 @@ Repository này cung cấp một **kỹ năng hướng dẫn tự phản tỉnh 
 - `tests/` — kiểm tra metadata, liên kết, số lượng câu hỏi và hai script.
 - `AGENTS.md` — quy tắc dành cho công cụ AI khi đọc hoặc sửa repository.
 
-## Công cụ
+## Cài đặt và sử dụng với uv
 
-Cần Python 3.10 trở lên; các script chỉ dùng thư viện chuẩn.
-
-Tạo mẫu dữ liệu chấm điểm:
+Cài [uv](https://docs.astral.sh/uv/getting-started/installation/) nếu máy chưa có. Dự án ghim Python 3.12 trong `.python-version`; uv có thể tự cài phiên bản Python này và tạo môi trường cô lập `.venv`.
 
 ```sh
-python scripts/score_chakras.py --mau
+uv python install
+uv sync --all-groups
 ```
 
-Tính điểm và nhận kết quả JSON:
+Hai lệnh CLI được cài trong môi trường dự án:
 
 ```sh
-python scripts/score_chakras.py \
+uv run score-chakras --mau
+uv run generate-chakra-plan --output lo-trinh-365-ngay.md
+```
+
+Chấm điểm trực tiếp và nhận kết quả JSON:
+
+```sh
+uv run score-chakras \
   --json '{"root":[0,2,4]}' \
   --dinh-dang json
 ```
 
-Tạo khung thực hành 365 ngày:
+Hoặc đọc dữ liệu từ file JSON bằng `--file scores.json`. Mỗi điểm phải là số nguyên từ 0 đến 4; kết quả chỉ gợi ý chủ đề tự phản tỉnh, không phải đánh giá sức khỏe.
+
+Các lệnh kiểm thử và đồng bộ phụ thuộc:
 
 ```sh
-python scripts/generate_365_day_plan.py --output lo-trinh-365-ngay.md
+uv run --locked pytest
+uv lock --check
 ```
 
-Chạy kiểm thử (cần `pytest`):
-
-```sh
-python -m pytest -q
-```
+`uv.lock` ghim phụ thuộc phát triển để máy local và GitHub Actions cài cùng bộ công cụ. CI tự chạy kiểm thử với Python 3.10 và 3.12.
 
 ## Nguồn tham khảo
 
