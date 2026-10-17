@@ -29,7 +29,7 @@ uv run --locked pytest
 uv run --locked ruff check .
 uv run --locked ruff format --check .
 uv run --locked ty check scripts tests
-uv run --locked mdformat --check --number --wrap 100 README.md AGENTS.md CONTRIBUTING.md SECURITY.md SKILL.md question-banks references
+uv run --locked mdformat --check --number --wrap 100 README.md AGENTS.md CONTRIBUTING.md SECURITY.md SKILL.md question-banks references .agents/skills
 uv run --locked pymarkdown --enable-extensions front-matter -d MD013 scan -r . --respect-gitignore
 uv run --locked pip-audit --skip-editable
 uv lock --check
