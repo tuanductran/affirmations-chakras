@@ -17,7 +17,7 @@ score-chakras = "scripts.score_chakras:main"
 generate-chakra-plan = "scripts.generate_365_day_plan:main"
 
 [dependency-groups]
-dev = ["pytest>=8.3,<9"]
+dev = ["pytest>=8.3,<9", "ruff>=0.14,<0.15"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["scripts"]
@@ -25,3 +25,10 @@ packages = ["scripts"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

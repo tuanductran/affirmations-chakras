@@ -29,16 +29,16 @@ CHAKRAS = {
 }
 
 LEVELS = (
-    (0, 24, "cần được nâng đỡ"),
-    (25, 49, "đang được khám phá"),
-    (50, 74, "khá được nâng đỡ"),
-    (75, 100, "đang vững vàng"),
+    (0, "cần được nâng đỡ"),
+    (25, "đang được khám phá"),
+    (50, "khá được nâng đỡ"),
+    (75, "đang vững vàng"),
 )
 
 
 def level_for(percent: float) -> str:
-    for low, high, label in LEVELS:
-        if low <= percent <= high:
+    for lower_bound, label in reversed(LEVELS):
+        if lower_bound <= percent <= 100:
             return label
     return "chưa đủ dữ liệu"
 
@@ -93,7 +93,13 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.mau:
-        print(json.dumps({key: [None, None, None, None, None] for key in CHAKRAS}, ensure_ascii=False, indent=2))
+        print(
+            json.dumps(
+                {key: [None, None, None, None, None] for key in CHAKRAS},
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
         return 0
 
     try:

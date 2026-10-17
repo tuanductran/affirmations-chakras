@@ -7,6 +7,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
@@ -17,5 +19,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           enable-cache: true
-      - run: uv sync --locked --all-groups
-      - run: uv run --locked pytest
+      - run: uv sync --locked --all-groups --python ${{ matrix.python-version }}
+      - run: uv run --locked --python ${{ matrix.python-version }} python -c "import sys; assert sys.version_info[:2] == tuple(map(int, '${{ matrix.python-version }}'.split('.')))"
+      - run: uv run --locked --python ${{ matrix.python-version }} pytest
+      - run: uv run --locked --python ${{ matrix.python-version }} ruff check .
+      - run: uv run --locked --python ${{ matrix.python-version }} ruff format --check .
+      - run: uv build --python ${{ matrix.python-version }}

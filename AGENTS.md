@@ -23,10 +23,12 @@
 - Không thêm phụ thuộc Python mới nếu thư viện chuẩn đáp ứng được yêu cầu. Bảo toàn giao diện dòng lệnh hiện có và thông báo lỗi rõ ràng.
 - Quản lý phiên bản Python bằng `.python-version`, cấu hình dự án và các lệnh CLI trong `pyproject.toml`, phụ thuộc được ghim trong `uv.lock`. Không thêm hoặc commit môi trường `.venv`.
 - Khi đổi phụ thuộc, cập nhật lock bằng `uv lock`; xác minh đồng bộ với `uv sync --locked --all-groups`.
+- Giữ mã Python đạt `uv run --locked ruff check .` và `uv run --locked ruff format --check .`.
 - Chỉ sửa những phần cần thiết cho yêu cầu; không xóa nội dung hoặc thay đổi lịch sử Git khi chưa được yêu cầu cụ thể.
 
 ## Kiểm tra thay đổi
 
 - Chạy kiểm thử với `uv run --locked pytest` khi thay đổi mã, cấu trúc ngân hàng câu hỏi hoặc các liên kết được kiểm tra.
+- Trước khi hoàn tất thay đổi Python, chạy Ruff lint/format và `uv build` cùng bộ kiểm thử.
 - Khi chỉnh script, kiểm tra cả cách dùng phù hợp và định dạng đầu ra liên quan; không commit tệp kết quả sinh ra hoặc dữ liệu riêng tư.
 - Nếu không chạy được một kiểm tra, báo rõ lệnh và nguyên nhân thay vì khẳng định kiểm tra đã đạt.

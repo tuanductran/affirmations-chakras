@@ -46,14 +46,17 @@ uv run score-chakras \
 
 Hoặc đọc dữ liệu từ file JSON bằng `--file scores.json`. Mỗi điểm phải là số nguyên từ 0 đến 4; kết quả chỉ gợi ý chủ đề tự phản tỉnh, không phải đánh giá sức khỏe.
 
-Các lệnh kiểm thử và đồng bộ phụ thuộc:
+Các lệnh kiểm thử, lint, định dạng và đồng bộ phụ thuộc:
 
 ```sh
 uv run --locked pytest
+uv run --locked ruff check .
+uv run --locked ruff format --check .
 uv lock --check
+uv build
 ```
 
-`uv.lock` ghim phụ thuộc phát triển để máy local và GitHub Actions cài cùng bộ công cụ. CI tự chạy kiểm thử với Python 3.10 và 3.12.
+`uv.lock` ghim phụ thuộc phát triển để máy local và GitHub Actions cài cùng bộ công cụ. CI tự chạy kiểm thử, lint, kiểm tra định dạng và đóng gói với Python 3.10 và 3.12.
 
 ## Nguồn tham khảo
 

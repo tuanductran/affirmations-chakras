@@ -34,12 +34,18 @@ def main() -> int:
 
     parts = [
         "# Lộ trình 365 ngày theo bảy luân xa\n\n",
-        "Đây là khung tự phản tỉnh, không phải chương trình điều trị. Chọn nội dung phù hợp và nghỉ khi cần.\n\n",
+        (
+            "Đây là khung tự phản tỉnh, không phải chương trình điều trị. "
+            "Chọn nội dung phù hợp và nghỉ khi cần.\n\n"
+        ),
     ]
     for day in range(1, 366):
         chakra = "Tổng kết năm" if day == 365 else CHAKRAS[(day - 1) % len(CHAKRAS)]
         parts.append(TEMPLATE.format(day=day, chakra=chakra))
-    args.output.write_text("".join(parts), encoding="utf-8")
+    try:
+        args.output.write_text("".join(parts), encoding="utf-8")
+    except OSError as exc:
+        parser.error(f"Không thể ghi tệp {args.output}: {exc}")
     print(f"Đã tạo {args.output} với 365 ngày.")
     return 0
 
