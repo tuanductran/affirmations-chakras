@@ -33,8 +33,9 @@
   cấu trúc, cập nhật kiểm thử có liên quan và nêu rõ thay đổi chủ đích.
 - Giữ câu hỏi và câu khẳng định cụ thể, có tính lựa chọn, không phán xét và không đòi hỏi người dùng
   tiết lộ trải nghiệm nhạy cảm.
-- Không thêm phụ thuộc Python mới nếu thư viện chuẩn đáp ứng được yêu cầu. Bảo toàn giao diện dòng
-  lệnh hiện có và thông báo lỗi rõ ràng.
+- Không thêm phụ thuộc lúc chạy nếu thư viện chuẩn đáp ứng được yêu cầu; các công cụ lint, định dạng
+  và kiểm thử chỉ được đặt trong nhóm phụ thuộc phát triển. Bảo toàn giao diện dòng lệnh hiện có và
+  thông báo lỗi rõ ràng.
 - Quản lý phiên bản Python bằng `.python-version`, cấu hình dự án và các lệnh CLI trong
   `pyproject.toml`, phụ thuộc được ghim trong `uv.lock`. Không thêm hoặc commit môi trường `.venv`.
 - Khi đổi phụ thuộc, cập nhật lock bằng `uv lock`; xác minh đồng bộ với
