@@ -374,7 +374,7 @@ def test_ci_workflow_preserves_security_invariants() -> None:
         re.fullmatch(r"[^@\s]+@[0-9a-f]{40}", action_ref) for action_ref in action_refs
     ), "Pin every GitHub Action to a full immutable commit SHA"
 
-    assert re.search(r"(?m)^      permissions:\n        contents: read$", workflow)
+    assert re.search(r"(?m)^    permissions:\n      contents: read$", workflow)
     assert not re.search(
         r"(?m)^\s+(?:contents|actions|checks|pull-requests|security-events):\s*write\s*$",
         workflow,
