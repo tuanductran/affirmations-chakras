@@ -70,8 +70,9 @@ uv run score-chakras \
 Hoặc đọc dữ liệu từ file JSON bằng `--file scores.json`. Mỗi điểm phải là số nguyên từ 0 đến 4; kết
 quả chỉ gợi ý chủ đề tự phản tỉnh, không phải đánh giá sức khỏe.
 
-Có thể sao chép `score_example.json` thành `score.json`, chỉnh sửa điểm rồi chạy `--file score.json`.
-Tệp `score.json` bị Git bỏ qua và không được commit; chỉ commit tệp mẫu `score_example.json`.
+Có thể sao chép `score_example.json` thành `score.json`, chỉnh sửa điểm rồi chạy
+`--file score.json`. Tệp `score.json` bị Git bỏ qua và không được commit; chỉ commit tệp mẫu
+`score_example.json`.
 
 ## Kiểm tra mã và Markdown
 
