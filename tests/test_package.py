@@ -370,9 +370,9 @@ def test_ci_workflow_preserves_security_invariants() -> None:
 
     action_refs = re.findall(r"(?m)^\s+- uses:\s*([^\s#]+)", workflow)
     assert action_refs, "CI must declare its third-party actions explicitly"
-    assert all(
-        re.fullmatch(r"[^@\s]+@[0-9a-f]{40}", action_ref) for action_ref in action_refs
-    ), "Pin every GitHub Action to a full immutable commit SHA"
+    assert all(re.fullmatch(r"[^@\s]+@[0-9a-f]{40}", action_ref) for action_ref in action_refs), (
+        "Pin every GitHub Action to a full immutable commit SHA"
+    )
 
     assert re.search(r"(?m)^    permissions:\n      contents: read$", workflow)
     assert "persist-credentials: false" in workflow
