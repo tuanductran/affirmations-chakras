@@ -375,6 +375,7 @@ def test_ci_workflow_preserves_security_invariants() -> None:
     ), "Pin every GitHub Action to a full immutable commit SHA"
 
     assert re.search(r"(?m)^    permissions:\n      contents: read$", workflow)
+    assert "persist-credentials: false" in workflow
     assert not re.search(
         r"(?m)^\s+(?:contents|actions|checks|pull-requests|security-events):\s*write\s*$",
         workflow,
