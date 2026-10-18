@@ -52,3 +52,7 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP"]
+
+[tool.pymarkdown]
+plugins.MD013.enabled = false
+extensions.front-matter.enabled = true

@@ -26,9 +26,11 @@ không phải công cụ chẩn đoán.
 
 ## Bộ chấm điểm nhanh
 
-Chấm mỗi câu từ 0 đến 4: **0** = hoàn toàn không đúng lúc này; **1** = ít đúng; **2** = đúng một
-phần; **3** = khá đúng; **4** = rất đúng. Tính điểm trung bình hoặc dùng công cụ
-`scripts/score_chakras.py`. Điểm chỉ giúp chọn chủ đề thực hành, không phải kết luận về sức khỏe.
+Dựa trên **7 ngày gần đây**, chấm mỗi câu từ 0 đến 4: **0** = hoàn toàn không đúng; **1** = ít đúng;
+**2** = đúng một phần; **3** = khá đúng; **4** = rất đúng. Có thể để trống câu không muốn trả lời;
+điểm trung bình chỉ tính câu đã trả lời. Dùng `scripts/score_chakras.py` để chấm một người hoặc tổng
+hợp CSV nhiều người. Điểm là tự báo cáo tại một thời điểm, không phải thang đo đã được kiểm định hay
+kết luận về sức khỏe.
 
 1. Tôi nhận biết và cho phép cảm xúc của mình hiện diện.
 2. Tôi có thể trải nghiệm niềm vui theo cách an toàn.

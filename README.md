@@ -23,15 +23,22 @@ hoặc sức khỏe tâm thần. Xem
 Đọc thêm [thực hành câu khẳng định nâng cao](references/affirmation-practice.md) khi muốn dùng hình
 dung, điều chỉnh cảm xúc, nhịp đọc hoặc nghi thức theo cách an toàn và có thể dừng bất cứ lúc nào.
 
+Xem [tài liệu dự án](docs/README.md) để chọn hướng dẫn người dùng, nhà phát triển hoặc kiểm thử; các
+mẫu điền sẵn nằm trong [`templates/`](templates/) và dữ liệu minh họa tổng hợp nằm trong
+[`examples/`](examples/).
+
 ## Nội dung repository
 
 - `SKILL.md` — hướng dẫn chính cho kỹ năng và liên kết đến tài liệu chi tiết.
 - `references/` — bảy mô-đun luân xa cùng tài liệu về nền tảng, an toàn, thực hành và lộ trình 365
   ngày; có thêm tài liệu thực hành câu khẳng định nâng cao.
 - `question-banks/` — mỗi luân xa có 15 câu hỏi tự phản tỉnh và 5 câu tự đánh giá.
-- `scripts/score_chakras.py` — tính điểm tự báo cáo từ 0–4; xuất văn bản hoặc JSON.
+- `scripts/score_chakras.py` — chấm tự báo cáo một người bằng JSON hoặc nhiều người bằng CSV.
 - `scripts/generate_365_day_plan.py` — tạo khung nhật ký thực hành 365 ngày.
 - `tests/` — kiểm tra metadata, liên kết, số lượng câu hỏi và hai script.
+- `docs/` — hướng dẫn cho người dùng, nhà phát triển và người kiểm thử.
+- `templates/` — mẫu phiên tự phản tỉnh và tự rà soát tuần.
+- `examples/` — dữ liệu điểm JSON/CSV giả và ví dụ phiên đã điền.
 - `AGENTS.md` — quy tắc dành cho công cụ AI khi đọc hoặc sửa repository.
 - `.agents/skills/` — các quy trình chuyên biệt theo
   [định dạng Agent Skills](https://agentskills.io/specification) cho tác vụ biên tập nội dung và bảo
@@ -67,12 +74,36 @@ uv run score-chakras \
   --dinh-dang json
 ```
 
-Hoặc đọc dữ liệu từ file JSON bằng `--file scores.json`. Mỗi điểm phải là số nguyên từ 0 đến 4; kết
-quả chỉ gợi ý chủ đề tự phản tỉnh, không phải đánh giá sức khỏe.
+Hoặc đọc dữ liệu từ file JSON bằng `--file scores.json`. Mỗi câu đã trả lời phải là số nguyên từ 0
+đến 4; giá trị `null` được bỏ qua. Kết quả là điểm trung bình thô trên thang 0–4 và số câu đã trả
+lời, không có ngưỡng hoặc xếp hạng. Bộ câu hỏi này là công cụ tự phản tỉnh, chưa được kiểm định như
+thang đo tâm lý hay đánh giá sức khỏe.
 
 Có thể sao chép `score_example.json` thành `score.json`, chỉnh sửa điểm rồi chạy
 `--file score.json`. Tệp `score.json` bị Git bỏ qua và không được commit; chỉ commit tệp mẫu
 `score_example.json`.
+
+### Dùng quiz với nhiều người
+
+Tạo mẫu CSV rồi mở bằng ứng dụng bảng tính:
+
+```sh
+uv run score-chakras --mau-csv > quiz.local.csv
+```
+
+Mỗi dòng là một người; dùng mã thay tên như `P01`, không nhập tên, email hoặc thông tin có thể nhận
+dạng người trả lời. Các cột `root_1` đến `crown_5` khớp với 5 câu tự đánh giá trong từng ngân hàng
+câu hỏi. Dựa trên 7 ngày gần đây, nhập điểm 0–4; để trống câu không muốn trả lời. Các dòng chưa có
+câu trả lời nào được tự động bỏ qua. Sau đó chạy:
+
+```sh
+uv run score-chakras --file quiz.local.csv
+```
+
+Kết quả gồm điểm riêng theo mã và trung bình nhóm cho từng chủ đề; `N` cho biết số người đã trả lời
+ít nhất một câu thuộc chủ đề đó. Công cụ không xếp hạng người tham gia, không lưu hoặc gửi dữ liệu
+đi nơi khác. Mã thay tên không bảo đảm ẩn danh nếu có thể liên kết với danh sách khác; chỉ chia sẻ
+kết quả với người phù hợp, giữ tệp CSV an toàn và xóa khi không còn cần.
 
 ## Kiểm tra mã và Markdown
 
@@ -81,8 +112,8 @@ uv run --locked pytest
 uv run --locked ruff check .
 uv run --locked ruff format --check .
 uv run --locked ty check scripts tests
-uv run --locked mdformat --check --number --wrap 100 README.md AGENTS.md CONTRIBUTING.md SECURITY.md SKILL.md question-banks references .agents/skills
-uv run --locked pymarkdown --enable-extensions front-matter -d MD013 scan -r . --respect-gitignore
+git ls-files -co --exclude-standard -z -- '*.md' | xargs -0 uv run --locked mdformat --check
+uv run --locked pymarkdown scan -r . --respect-gitignore
 uv run --locked pip-audit --skip-editable
 uv lock --check
 uv build

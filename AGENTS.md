@@ -7,7 +7,8 @@
 - Viết tài liệu hướng đến người dùng bằng tiếng Việt tự nhiên, rõ ràng và không phán xét. Giữ nguyên
   tên file và mã định danh hiện có.
 - Tôn trọng cách tổ chức hiện tại: nội dung dùng chung trong `references/`, mỗi mô-đun luân xa trong
-  một file tham chiếu, câu hỏi trong `question-banks/`, mã thực thi trong `scripts/`, kiểm thử trong
+  một file tham chiếu, câu hỏi trong `question-banks/`, hướng dẫn trong `docs/`, mẫu trong
+  `templates/`, dữ liệu minh họa giả trong `examples/`, mã thực thi trong `scripts/`, kiểm thử trong
   `tests/`.
 - Giữ các liên kết tương đối giữa tài liệu và cập nhật liên kết khi đổi tên hoặc di chuyển file.
 - Làm theo `CONTRIBUTING.md` khi chuẩn bị thay đổi; báo cáo lỗ hổng theo `SECURITY.md`, không đăng
@@ -46,10 +47,8 @@
 - Khi đổi phụ thuộc, cập nhật lock bằng `uv lock`; xác minh đồng bộ với
   `uv sync --locked --all-groups`.
 - Giữ mã Python đạt `uv run --locked ruff check .` và `uv run --locked ruff format --check .`.
-- Giữ tài liệu đạt
-  `uv run --locked mdformat --check --number --wrap 100 README.md AGENTS.md CONTRIBUTING.md SECURITY.md SKILL.md question-banks references .agents/skills`
-  và
-  `uv run --locked pymarkdown --enable-extensions front-matter -d MD013 scan -r . --respect-gitignore`.
+- Giữ tài liệu đạt lệnh mdformat và PyMarkdown trong `docs/testing.md`; cấu hình định dạng nằm trong
+  `.mdformat.toml`, cấu hình lint nằm trong `pyproject.toml`.
 - Giữ kiểm tra kiểu đạt `uv run --locked ty check scripts tests`, độ bao phủ đạt ít nhất 85% bằng
   `uv run --locked pytest --cov=scripts --cov-report=term-missing --cov-fail-under=85`, và phụ thuộc
   không có lỗ hổng đã biết bằng `uv run --locked pip-audit --skip-editable`.

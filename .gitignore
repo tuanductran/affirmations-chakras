@@ -10,6 +10,7 @@ env/
 
 # Test and coverage output
 .pytest_cache/
+.ruff_cache/
 .coverage
 .coverage.*
 htmlcov/
@@ -24,6 +25,7 @@ dist/
 lo-trinh-365-ngay.md
 *.generated.md
 *.local.md
+*.local.csv
 
 # Local data and temporary files
 scores.json

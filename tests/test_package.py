@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import csv
+import io
 import json
 import re
 import subprocess
@@ -12,7 +14,16 @@ import pytest
 from markdown_it import MarkdownIt
 
 from scripts.generate_365_day_plan import main as generate_plan_main
-from scripts.score_chakras import level_for, score, validate_scores
+from scripts.score_chakras import (
+    CHAKRAS,
+    CSV_COLUMNS,
+    ParticipantScores,
+    csv_template,
+    score,
+    score_participants,
+    validate_csv_scores,
+    validate_scores,
+)
 from scripts.score_chakras import main as score_main
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -176,7 +187,7 @@ def test_score_script_json_output() -> None:
     )
     result = json.loads(completed.stdout)
     assert result[0]["khoa"] == "root"
-    assert result[0]["phan_tram"] == 50.0
+    assert result[0]["diem_trung_binh"] == 2.0
 
 
 def test_score_cli_template_json_and_text(
@@ -202,13 +213,14 @@ def test_score_cli_template_json_and_text(
         ["score-chakras", "--json", '{"root":[0,2,4]}', "--dinh-dang", "json"],
     )
     assert score_main() == 0
-    assert json.loads(capsys.readouterr().out)[0]["phan_tram"] == 50.0
+    assert json.loads(capsys.readouterr().out)[0]["diem_trung_binh"] == 2.0
 
     monkeypatch.setattr(sys, "argv", ["score-chakras", "--json", '{"root":[0,2,4]}'])
     assert score_main() == 0
     text = capsys.readouterr().out
     assert "KẾT QUẢ TỰ PHẢN TỈNH" in text
-    assert "Chủ đề có điểm thấp nhất để bắt đầu: Gốc rễ." in text
+    assert "không có ngưỡng đánh giá đã được kiểm định" in text
+    assert "không nhất thiết là điểm thấp nhất" in text
 
 
 def test_score_script_reads_file(tmp_path: Path) -> None:
@@ -229,7 +241,7 @@ def test_score_script_reads_file(tmp_path: Path) -> None:
     )
     result = json.loads(completed.stdout)
     assert result[0]["khoa"] == "heart"
-    assert result[0]["phan_tram"] == 75.0
+    assert result[0]["diem_trung_binh"] == 3.0
 
 
 def test_score_cli_file_and_error_paths(
@@ -266,23 +278,6 @@ def test_score_script_rejects_fractional_values() -> None:
 
 
 @pytest.mark.parametrize(
-    ("percent", "expected"),
-    [
-        (0, "cần được nâng đỡ"),
-        (24.9, "cần được nâng đỡ"),
-        (25, "đang được khám phá"),
-        (49.9, "đang được khám phá"),
-        (50, "khá được nâng đỡ"),
-        (74.9, "khá được nâng đỡ"),
-        (75, "đang vững vàng"),
-        (100, "đang vững vàng"),
-    ],
-)
-def test_level_for_covers_continuous_score_ranges(percent: float, expected: str) -> None:
-    assert level_for(percent) == expected
-
-
-@pytest.mark.parametrize(
     "raw",
     [
         {},
@@ -300,15 +295,153 @@ def test_validate_scores_rejects_invalid_input(raw: object) -> None:
         validate_scores(raw)
 
 
-def test_score_classifies_valid_fractional_percentage() -> None:
+def test_validate_scores_allows_skipped_items() -> None:
+    assert validate_scores({"root": [None, 4, None, 2]}) == {"root": [4, 2]}
+    with pytest.raises(ValueError, match="ít nhất một câu trả lời"):
+        validate_scores({"root": [None, None]})
+
+
+def test_score_returns_unclassified_self_reported_average() -> None:
     result = score({"root": [3, 3, 3, 3, 3, 3, 2]})
-    assert result[0]["phan_tram"] == 71.4
-    assert result[0]["muc_goi_y"] == "khá được nâng đỡ"
+    assert result == [
+        {
+            "khoa": "root",
+            "ten": "Gốc rễ",
+            "so_cau": 7,
+            "diem_trung_binh": 2.86,
+        }
+    ]
 
 
-@pytest.mark.parametrize("percent", [-0.1, 100.1])
-def test_level_for_out_of_range_percent(percent: float) -> None:
-    assert level_for(percent) == "chưa đủ dữ liệu"
+def test_csv_template_and_group_scoring() -> None:
+    template = list(csv.reader(io.StringIO(csv_template())))
+    assert tuple(template[0]) == CSV_COLUMNS
+    assert template[1][0] == "P01"
+    assert template[2][0] == "P02"
+
+    semicolon_output = io.StringIO()
+    writer = csv.writer(semicolon_output, delimiter=";")
+    writer.writerow(CSV_COLUMNS)
+    writer.writerow(("P01", "4", *("" for _ in range(34))))
+    assert validate_csv_scores(f"\ufeff{semicolon_output.getvalue()}")[0]["scores"] == {"root": [4]}
+
+    participants: list[ParticipantScores] = [
+        {"ma_nguoi_tham_gia": "P01", "scores": {"root": [4, 2], "heart": [3]}},
+        {"ma_nguoi_tham_gia": "P02", "scores": {"root": [0, 2, 2], "heart": [1]}},
+    ]
+    individual, group = score_participants(participants)
+    assert individual[0]["ket_qua"][0]["diem_trung_binh"] == 3.0
+    assert group == [
+        {"khoa": "root", "ten": "Gốc rễ", "so_nguoi": 2, "diem_trung_binh": 2.17},
+        {"khoa": "heart", "ten": "Tim", "so_nguoi": 2, "diem_trung_binh": 2.0},
+    ]
+
+
+def test_example_score_files_match_cli_contract() -> None:
+    single_scores = json.loads((ROOT / "examples" / "scores-one-participant.json").read_text())
+    assert validate_scores(single_scores)
+
+    group_scores = validate_csv_scores(
+        (ROOT / "examples" / "group-quiz-responses.csv").read_text(encoding="utf-8")
+    )
+    assert [participant["ma_nguoi_tham_gia"] for participant in group_scores] == ["P01", "P02"]
+    assert all(set(participant["scores"]) == set(CHAKRAS) for participant in group_scores)
+    template_header = next(csv.reader(io.StringIO(csv_template())))
+    example_csv = (ROOT / "examples" / "group-quiz-responses.csv").read_text(encoding="utf-8")
+    example_header = next(csv.reader(io.StringIO(example_csv)))
+    assert example_header == template_header
+
+
+def test_validate_csv_scores_allows_skipped_answers() -> None:
+    rows = [
+        CSV_COLUMNS,
+        ("P01", "4", "", "2", "", "0", *("" for _ in range(30))),
+        ("P02", *("" for _ in range(35))),
+    ]
+    csv_text = "\n".join(",".join(row) for row in rows)
+    participants = validate_csv_scores(csv_text)
+    assert participants == [{"ma_nguoi_tham_gia": "P01", "scores": {"root": [4, 2, 0]}}]
+
+
+@pytest.mark.parametrize(
+    "csv_text",
+    [
+        "",
+        "wrong,header\n",
+        ",".join((*CSV_COLUMNS, CSV_COLUMNS[0])) + "\n",
+        ",".join(CSV_COLUMNS) + "\n" + ",".join(("P01", *("" for _ in range(35)))),
+        ",".join(CSV_COLUMNS) + "\n" + ",".join(("P01", "5", *("" for _ in range(34)))),
+        ",".join(CSV_COLUMNS) + "\n" + ",".join(("P01", "x", *("" for _ in range(34)))),
+        ",".join(CSV_COLUMNS) + "\n" + ",".join(("P01\nP02", "1", *("" for _ in range(34)))),
+        ",".join(CSV_COLUMNS) + "\n" + ",".join(("P" * 65, "1", *("" for _ in range(34)))),
+        ",".join(CSV_COLUMNS)
+        + "\n"
+        + ",".join(("P01", "1", *("" for _ in range(34))))
+        + "\n"
+        + ",".join(("P01", "2", *("" for _ in range(34)))),
+    ],
+)
+def test_validate_csv_scores_rejects_invalid_input(csv_text: str) -> None:
+    with pytest.raises(ValueError):
+        validate_csv_scores(csv_text)
+
+
+def test_duplicate_participant_error_does_not_echo_identifier() -> None:
+    csv_text = (
+        ",".join(CSV_COLUMNS)
+        + "\n"
+        + ",".join(("PRIVATE-CODE", "1", *("" for _ in range(34))))
+        + "\n"
+        + ",".join(("PRIVATE-CODE", "2", *("" for _ in range(34))))
+    )
+    with pytest.raises(ValueError, match="mã người tham gia bị lặp") as error:
+        validate_csv_scores(csv_text)
+    assert "PRIVATE-CODE" not in str(error.value)
+
+
+def test_score_cli_csv_group_output(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path
+) -> None:
+    csv_path = tmp_path / "responses.csv"
+    csv_path.write_text(
+        ",".join(CSV_COLUMNS)
+        + "\n"
+        + ",".join(("P01", "4", *("2" for _ in range(34))))
+        + "\n"
+        + ",".join(("P02", "0", *("2" for _ in range(34))))
+        + "\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["score-chakras", "--file", str(csv_path), "--dinh-dang", "json"],
+    )
+    assert score_main() == 0
+    report = json.loads(capsys.readouterr().out)
+    assert [row["ma_nguoi_tham_gia"] for row in report["ca_nhan"]] == ["P01", "P02"]
+    assert report["tong_hop_nhom"][0] == {
+        "khoa": "root",
+        "ten": "Gốc rễ",
+        "so_nguoi": 2,
+        "diem_trung_binh": 2.0,
+    }
+    assert "chưa được kiểm định tâm trắc" in report["luu_y"]
+
+    monkeypatch.setattr(sys, "argv", ["score-chakras", "--file", str(csv_path)])
+    assert score_main() == 0
+    text_report = capsys.readouterr().out
+    assert "P01:" in text_report
+    assert "TỔNG HỢP NHÓM" in text_report
+    assert "(N=2)" in text_report
+
+
+def test_score_cli_prints_csv_template(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setattr(sys, "argv", ["score-chakras", "--mau-csv"])
+    assert score_main() == 0
+    assert tuple(next(csv.reader(io.StringIO(capsys.readouterr().out)))) == CSV_COLUMNS
 
 
 def test_console_scripts_are_configured() -> None:

@@ -52,8 +52,22 @@ bàn chân trên sàn và liên hệ người tin cậy hoặc chuyên gia phù 
 ## Quy tắc diễn giải điểm
 
 Điểm chỉ phản ánh cảm nhận tự báo cáo tại thời điểm trả lời. Không gọi điểm cao là “luân xa đã cân
-bằng” và không gọi điểm thấp là “luân xa bị tắc”. Dùng điểm để chọn chủ đề thực hành, so sánh với
-chính mình theo thời gian và quan sát nhu cầu hỗ trợ.
+bằng” và không gọi điểm thấp là “luân xa bị tắc”. Dùng điểm để chọn chủ đề thực hành và quan sát nhu
+cầu hỗ trợ. Có thể ghi nhận thay đổi trong cảm nhận cùng bối cảnh, nhưng không xem chênh lệch là
+thước đo tiến triển đã được xác nhận.
+
+### Quiz tự đánh giá trên web
+
+Một số quiz wellness công khai dùng nhiều câu cho mỗi chủ đề, thang trả lời theo mức độ và biểu đồ
+tóm tắt; có trang mô tả 49 câu (7 câu cho mỗi luân xa), trang khác mô tả 56 câu. Đây là ví dụ về
+cách giới thiệu phạm vi, thu thập câu trả lời và trình bày kết quả, không phải bằng chứng xác nhận
+độ tin cậy hoặc giá trị của điểm số. [7] [8] Một bài viết khác quảng bá quiz ngắn khoảng hai phút
+nhưng không hiển thị đủ câu hỏi và cách tính điểm trong nội dung đã xem. [9]
+
+Bộ câu hỏi trong repository là lời mời tự phản tỉnh, chưa được kiểm định tâm trắc và không có ngưỡng
+diễn giải. Điểm trung bình nhóm chỉ mô tả câu trả lời tự nguyện trong tệp được cung cấp; không xếp
+hạng cá nhân, không suy ra sức khỏe hoặc đặc điểm ổn định, và không nên dùng để ra quyết định về
+người tham gia.
 
 ### Tài liệu tham khảo
 
@@ -63,3 +77,6 @@ chính mình theo thời gian và quan sát nhu cầu hỗ trợ.
 [4]: https://www.nccih.nih.gov/health/meditation-and-mindfulness-effectiveness-and-safety "Meditation and Mindfulness: Effectiveness and Safety — NCCIH"
 [5]: https://doi.org/10.1111/acps.13225 "Adverse events in meditation practices and meditation-based therapies: a systematic review"
 [6]: https://doi.org/10.1093/oxfordhb/9780197549889.013.8 "Esoteric Physiology and Subtle Body Systems — The Oxford Handbook of Tantric Studies"
+[7]: https://www.7chakracolors.com/chakra/test-quiz/ "Chakra Test — 7 Chakra Colors"
+[8]: https://www.eclecticenergies.com/chakras/chakratest "Chakra Test — Eclectic Energies"
+[9]: https://www.mindbodygreen.com/articles/chakra-test "A Chakra Test To Discover Which Chakra Is Out Of Balance — mindbodygreen"

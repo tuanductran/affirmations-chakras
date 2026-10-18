@@ -74,10 +74,13 @@ Chọn 3–5 câu phù hợp, không đọc toàn bộ 15 câu cùng lúc. Có t
 cảm xúc, niềm tin, hành động và rà soát. Khuyến khích trả lời bằng vài dòng, thang điểm 0–10 hoặc ví
 dụ cụ thể. Không suy diễn bệnh lý từ câu trả lời.
 
-Khi cần đo nhanh, dùng 5 câu chấm điểm trong ngân hàng tương ứng. Chấm mỗi câu từ 0 đến 4, tính
-trung bình rồi đổi sang phần trăm bằng công thức `điểm trung bình / 4 × 100`. Gọi kết quả là **mức
-độ được nâng đỡ theo tự báo cáo**, không gọi là mức cân bằng hay chẩn đoán. Có thể chạy
-`scripts/score_chakras.py` với dữ liệu JSON để tự động tính điểm.
+Khi muốn tự đánh giá, dùng 5 câu trong ngân hàng tương ứng và trả lời dựa trên 7 ngày gần đây. Chấm
+mỗi câu từ 0 đến 4; có thể bỏ qua câu không muốn trả lời. Chỉ báo cáo trung bình thô trên thang 0–4
+và số câu đã trả lời; không quy đổi sang phần trăm, xếp hạng hoặc gán ngưỡng. Đây là bộ câu hỏi tự
+phản tỉnh chưa được kiểm định như một thang đo tâm lý, không phải phép đo mức cân bằng hay chẩn
+đoán. Có thể chạy `scripts/score_chakras.py` với JSON cho một người hoặc CSV ẩn danh để xem kết quả
+từng người và trung bình nhóm. Mã người tham gia nên thay tên và không chứa dữ kiện có thể nhận
+dạng; chỉ chia sẻ dữ liệu với người phù hợp.
 
 ### 5. Kết thúc phiên
 
@@ -121,9 +124,11 @@ lặng?” Gắn lựa chọn với mô-đun tương ứng và nói rõ đây ch
 
 ## Tự động hóa
 
-Đọc [scripts/score_chakras.py](scripts/score_chakras.py) khi cần tính điểm từ dữ liệu JSON. Dùng
-`--mau` để tạo mẫu dữ liệu, `--json` để truyền điểm trực tiếp, `--file` để đọc tệp JSON và
-`--dinh-dang json` để nhận kết quả dạng máy có thể xử lý. Đọc
+Đọc [scripts/score_chakras.py](scripts/score_chakras.py) khi cần tính điểm tự báo cáo. Dùng `--mau`
+để tạo mẫu JSON cho một người, `--mau-csv` để tạo mẫu bảng tính cho nhiều người, `--json` để truyền
+điểm trực tiếp, `--file` để đọc tệp JSON hoặc CSV, và `--dinh-dang json` để nhận kết quả dạng máy có
+thể xử lý. Mã trong CSV nên là mã ẩn danh; không nhập tên, email hay thông tin nhạy cảm. Tệp kết quả
+chỉ được in ra màn hình, không tự động lưu hoặc gửi đi. Đọc
 [scripts/generate_365_day_plan.py](scripts/generate_365_day_plan.py) khi cần tự động tạo khung lịch
 365 ngày. Luôn hiển thị giới hạn: điểm chỉ giúp chọn chủ đề thực hành và có thể thay đổi theo thời
 điểm.
