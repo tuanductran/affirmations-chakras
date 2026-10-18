@@ -27,6 +27,7 @@ lo-trinh-365-ngay.md
 
 # Local data and temporary files
 scores.json
+score.json
 *.local.json
 *.generated.json
 *.tmp
