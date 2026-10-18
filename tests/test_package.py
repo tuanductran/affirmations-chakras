@@ -363,3 +363,23 @@ def test_generator_main_reports_write_error(
         generate_plan_main()
     assert error.value.code == 2
     assert "Không thể ghi tệp" in capsys.readouterr().err
+
+
+def test_ci_workflow_preserves_security_invariants() -> None:
+    workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+
+    action_refs = re.findall(r"(?m)^\\s+- uses:\\s*([^\\s#]+)", workflow)
+    assert action_refs, "CI must declare its third-party actions explicitly"
+    assert all(
+        re.fullmatch(r"[^@\\s]+@[0-9a-f]{40}", action_ref) for action_ref in action_refs
+    ), "Pin every GitHub Action to a full immutable commit SHA"
+
+    assert re.search(r"(?m)^      permissions:\\n        contents: read$", workflow)
+    assert not re.search(
+        r"(?m)^\\s+(?:contents|actions|checks|pull-requests|security-events):\\s*write\\s*$",
+        workflow,
+    ), "The test job must not gain write permissions without an explicit security review"
+
+    assert re.search(r"(?m)^  pull_request:\\s*$", workflow)
+    assert 'python-version: ["3.10", "3.12", "3.15"]' in workflow
+    assert "pip-audit --skip-editable" in workflow
