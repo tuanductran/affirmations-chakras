@@ -36,7 +36,9 @@ chi tiết: [Gốc rễ](references/root-chakra.md), [Xương cùng](references/
 [Cổ họng](references/throat-chakra.md), [Con mắt thứ ba](references/third-eye-chakra.md),
 [Vương miện](references/crown-chakra.md). Mỗi tài liệu tham chiếu liên kết tới ngân hàng tương ứng
 trong thư mục [ngân hàng câu hỏi](question-banks/). Đọc [phần thực hành](references/practices.md)
-khi cần lộ trình 7 ngày hoặc mẫu nhật ký và [lộ trình 365 ngày](references/365-day-plan.md) khi cần
+khi cần lộ trình 7 ngày hoặc mẫu nhật ký,
+[thực hành câu khẳng định nâng cao](references/affirmation-practice.md) khi cần hình dung, điều
+chỉnh cảm xúc, nhịp đọc hoặc nghi thức, và [lộ trình 365 ngày](references/365-day-plan.md) khi cần
 kế hoạch dài hạn.
 
 ## Quy trình sử dụng

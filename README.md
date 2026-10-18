@@ -20,11 +20,14 @@ hoặc sức khỏe tâm thần. Xem
 3. Chọn 3–5 câu trong ngân hàng câu hỏi của mô-đun, một câu khẳng định và một hành động nhỏ. Bỏ qua
    hoặc điều chỉnh bất cứ nội dung nào không phù hợp.
 
+Đọc thêm [thực hành câu khẳng định nâng cao](references/affirmation-practice.md) khi muốn dùng hình
+dung, điều chỉnh cảm xúc, nhịp đọc hoặc nghi thức theo cách an toàn và có thể dừng bất cứ lúc nào.
+
 ## Nội dung repository
 
 - `SKILL.md` — hướng dẫn chính cho kỹ năng và liên kết đến tài liệu chi tiết.
 - `references/` — bảy mô-đun luân xa cùng tài liệu về nền tảng, an toàn, thực hành và lộ trình 365
-  ngày.
+  ngày; có thêm tài liệu thực hành câu khẳng định nâng cao.
 - `question-banks/` — mỗi luân xa có 15 câu hỏi tự phản tỉnh và 5 câu tự đánh giá.
 - `scripts/score_chakras.py` — tính điểm tự báo cáo từ 0–4; xuất văn bản hoặc JSON.
 - `scripts/generate_365_day_plan.py` — tạo khung nhật ký thực hành 365 ngày.

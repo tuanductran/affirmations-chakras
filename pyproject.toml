@@ -12,6 +12,12 @@ license = "MIT"
 authors = [{ name = "Tuan Duc Tran" }]
 dependencies = []
 
+[project.urls]
+Homepage = "https://github.com/tuanductran/affirmations-chakras"
+Repository = "https://github.com/tuanductran/affirmations-chakras"
+Issues = "https://github.com/tuanductran/affirmations-chakras/issues"
+Security = "https://github.com/tuanductran/affirmations-chakras/security"
+
 [project.scripts]
 score-chakras = "scripts.score_chakras:main"
 generate-chakra-plan = "scripts.generate_365_day_plan:main"
